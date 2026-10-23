@@ -1,0 +1,14 @@
+# Entorno local
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Dataset y pesos generados localmente
+dataset/
+modelo_detector_grietas.pth
+checkpoints/
+
+# Configuración de editores
+.vscode/
+.idea/
