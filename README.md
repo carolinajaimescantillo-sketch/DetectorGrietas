@@ -1,38 +1,37 @@
 # Detector de Grietas
 
-Sistema académico para la clasificación preliminar de superficies con o sin grietas mediante **MobileNetV2, PyTorch y OpenCV**. Incluye una interfaz gráfica de escritorio con Tkinter y los scripts para entrenar, probar y evaluar el modelo.
+Sistema académico para la clasificación preliminar de superficies con o sin grietas mediante **MobileNetV2, PyTorch y OpenCV**. Incluye una interfaz gráfica de escritorio con Tkinter y scripts para entrenar, probar y evaluar el modelo.
 
-> **Importante:** es una herramienta de evaluación visual preliminar. No certifica la seguridad estructural, no determina la resistencia de una edificación ni predice terremotos. Ante grietas diagonales, ramificadas o que aumenten, deformaciones, desprendimientos, filtraciones o ruidos, solicita una inspección profesional incluso si el resultado del programa es bajo.
+> **Aviso de seguridad:** este proyecto es una ayuda visual académica. No certifica la seguridad estructural, no determina la resistencia de una edificación ni predice terremotos. Ante grietas diagonales, ramificadas o que aumenten, deformaciones, desprendimientos, filtraciones o ruidos, solicita una inspección profesional aunque el resultado sea bajo.
 
-## Qué incluye
+## Contenido del repositorio
 
-- `PruebaDetector.py`: interfaz gráfica de escritorio para seleccionar una imagen y ver el resultado del modelo.
-- `DetectorGrietas.py`: entrenamiento de MobileNetV2 durante 20 épocas.
+- `DetectorGrietas.py`: entrenamiento de MobileNetV2.
+- `PruebaDetector.py`: interfaz gráfica de escritorio.
 - `EvaluarModelo.py`: métricas de clasificación y matriz de confusión.
-- `EvaluarTodo.py`: evaluación adicional del conjunto de imágenes.
-- `ComplejidadModelo.py`: parámetros, tamaño del modelo y tiempo de inferencia.
-- `LocalizarGrieta.py`: procesamiento de imágenes, máscara visual y funciones auxiliares.
-- `MedirGrieta.py`: estimaciones en píxeles de la zona candidata.
-- `RiesgoGrieta.py`: ventana independiente del semáforo de riesgo.
+- `EvaluarTodo.py`: evaluación adicional.
+- `ComplejidadModelo.py`: parámetros, tamaño de pesos y tiempo de inferencia.
+- `LocalizarGrieta.py`: procesamiento visual aproximado mediante OpenCV.
+- `MedirGrieta.py`: estimaciones en píxeles.
+- `RiesgoGrieta.py`: semáforo de riesgo orientativo.
+- `dataset/README.md`: instrucciones para preparar los datos.
+- `modelo_detector_grietas.pth`: pesos entrenados necesarios para hacer predicciones (se deben descargar/copiar por separado mientras no estén publicados como artefacto binario).
 
-No se incluye una aplicación web. La interfaz principal es de escritorio y el código se puede abrir y editar en Visual Studio Code.
+## Datos y modelo
 
-## Requisitos
+El archivo original del dataset se llama `dataset.zip.rar` y pesa aproximadamente 231 MiB. GitHub bloquea archivos individuales de más de 100 MB en las subidas normales, por lo que **el archivo comprimido completo no se puede agregar directamente al repositorio mediante una carga normal**. Consulta [dataset/README.md](dataset/README.md) para preparar las carpetas y las opciones para alojar el archivo grande con Git LFS o almacenamiento externo.
 
-- Windows, macOS o Linux.
-- Python 3.11 o 3.12 recomendado.
-- Visual Studio Code (opcional, para editar el código).
-- El archivo de pesos `modelo_detector_grietas.pth` para usar la interfaz y ejecutar las evaluaciones.
-- Las carpetas de imágenes `dataset/Negative` y `dataset/Positive` para entrenar o volver a evaluar el modelo.
+El modelo entrenado `modelo_detector_grietas.pth` también es un archivo binario. Para usar la interfaz, debe estar en la raíz del proyecto junto a `PruebaDetector.py`. Si no está disponible en la descarga, cópialo desde la carpeta donde se entrenó.
 
 ## Descargar el proyecto
 
-1. Abre el repositorio: https://github.com/carolinajaimescantillo-sketch/DetectorGrietas
+1. Abre https://github.com/carolinajaimescantillo-sketch/DetectorGrietas.
 2. Pulsa **Code → Download ZIP**.
-3. Descomprime el ZIP en una carpeta, por ejemplo `C:\Proyecto_algoritmos`.
-4. Abre esa carpeta en Visual Studio Code con **File → Open Folder**.
+3. Descomprime el proyecto.
+4. Prepara el dataset siguiendo [dataset/README.md](dataset/README.md).
+5. Copia `modelo_detector_grietas.pth` en la carpeta raíz para ejecutar predicciones sin reentrenar.
 
-También puedes clonar el repositorio desde una terminal:
+También puedes clonar el repositorio:
 
 ```powershell
 git clone https://github.com/carolinajaimescantillo-sketch/DetectorGrietas.git
@@ -40,9 +39,9 @@ cd DetectorGrietas
 code .
 ```
 
-## Preparar el entorno en Windows
+## Instalación en Windows
 
-Abre la terminal integrada de Visual Studio Code dentro de la carpeta del proyecto y ejecuta:
+Se recomienda Python 3.11 o 3.12. Abre PowerShell dentro de la carpeta del proyecto:
 
 ```powershell
 py -3.11 -m venv .venv
@@ -51,78 +50,65 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Si PowerShell impide activar el entorno, puedes ejecutar los comandos directamente con la ruta del entorno:
+Si no puedes activar el entorno:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-Para evitar instalar paquetes en otro Python, comprueba que la terminal use el intérprete de `.venv`. En VS Code: **Ctrl+Shift+P → Python: Select Interpreter → .venv**.
+En VS Code selecciona el intérprete del entorno virtual con **Ctrl+Shift+P → Python: Select Interpreter → .venv**.
 
-## Usar la interfaz gráfica
+## Ejecutar la interfaz
 
-1. Asegúrate de que `modelo_detector_grietas.pth` esté en la carpeta raíz, junto a `PruebaDetector.py`.
-2. Activa el entorno virtual e instala las dependencias.
-3. Ejecuta:
+Asegúrate de tener `modelo_detector_grietas.pth` en la raíz y ejecuta:
 
 ```powershell
 python PruebaDetector.py
 ```
 
-4. En la ventana, selecciona una imagen y ejecuta el análisis.
-
-Si aparece un mensaje indicando que no se pudo cargar el modelo, revisa que el archivo `modelo_detector_grietas.pth` exista en la carpeta raíz. **El archivo de pesos no está incluido actualmente en este repositorio**, por lo que debe copiarse desde la carpeta donde se entrenó el modelo. Sin esos pesos, la interfaz no puede realizar predicciones.
-
 ## Entrenar el modelo
 
-La estructura esperada del dataset es:
+La estructura de datos esperada es:
 
 ```text
 DetectorGrietas/
 ├── dataset/
 │   ├── Negative/
 │   └── Positive/
+├── modelo_detector_grietas.pth
 ├── DetectorGrietas.py
-├── PruebaDetector.py
-├── EvaluarModelo.py
-├── EvaluarTodo.py
-├── ComplejidadModelo.py
-├── LocalizarGrieta.py
-├── MedirGrieta.py
-├── RiesgoGrieta.py
-├── requirements.txt
-└── README.md
+└── PruebaDetector.py
 ```
 
 - `Negative`: imágenes de superficies sin grietas.
 - `Positive`: imágenes de superficies con grietas.
 
-Coloca las imágenes en sus carpetas correspondientes y ejecuta:
+Cuando las carpetas estén listas, ejecuta:
 
 ```powershell
 python DetectorGrietas.py
 ```
 
-El script está configurado para separar los datos en entrenamiento (70 %), validación (15 %) y prueba (15 %), con semilla 123, y guarda `modelo_detector_grietas.pth` al terminar. El entrenamiento requiere el dataset completo y puede tardar según el equipo.
+El entrenamiento separa los datos en entrenamiento (70 %), validación (15 %) y prueba (15 %), usa semilla 123 y guarda los pesos en `modelo_detector_grietas.pth`. Entrenar nuevamente no es necesario si ya tienes los pesos entrenados.
 
 ## Evaluar el modelo
 
-Con el dataset y los pesos disponibles, ejecuta:
+Con el dataset y los pesos disponibles:
 
 ```powershell
 python EvaluarModelo.py
 python ComplejidadModelo.py
 ```
 
-La primera herramienta calcula Accuracy, Precision, Recall, F1-score y la matriz de confusión. La segunda estima la cantidad de parámetros, el tamaño del archivo de pesos y el tiempo de inferencia en el equipo donde se ejecuta.
+La evaluación informa Accuracy, Precision, Recall, F1-score y matriz de confusión. La complejidad calcula el número de parámetros, el tamaño de los pesos y el tiempo de inferencia en el equipo actual.
 
-## Limitaciones técnicas
+## Limitaciones
 
-- El clasificador distingue dos clases aprendidas: `Negative` y `Positive`.
-- La confianza del modelo no equivale a una probabilidad certificada de daño estructural.
-- La localización por OpenCV es una aproximación visual basada en bordes y contornos; puede resaltar textura, juntas, sombras u otros elementos que no sean grietas.
-- Las medidas se expresan en píxeles, no en milímetros, salvo que se realice una calibración física específica.
-- Un resultado “Negative” no garantiza que la estructura sea segura.
+- El modelo clasifica imágenes en las clases aprendidas `Negative` y `Positive`.
+- La confianza no es una probabilidad certificada de daño estructural.
+- OpenCV puede resaltar texturas, juntas, sombras u objetos que no sean grietas.
+- Las medidas son píxeles, no milímetros, a menos que se calibre con una referencia física.
+- Un resultado `Negative` no garantiza que una estructura sea segura.
 
 ## Tecnologías
 
