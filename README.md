@@ -19,9 +19,11 @@ Sistema académico para la clasificación preliminar de superficies con o sin gr
 
 ## Importante: dataset no incluido en GitHub
 
-El dataset original (`dataset.zip.rar`) **no está incluido en este repositorio** porque pesa aproximadamente **231 MiB** y GitHub bloquea las subidas normales de archivos individuales de más de **100 MB**. No se pudo subir directamente por ese límite de tamaño; no es un error del código del proyecto.
+El dataset de referencia seleccionado para este proyecto es **Surface Crack Detection** de Kaggle: [abrir y descargar el dataset en Kaggle](https://www.kaggle.com/datasets/arunrk7/surface-crack-detection). Kaggle puede solicitar iniciar sesión y aceptar sus condiciones de uso.
 
-Para usar el entrenamiento, descarga el dataset desde la ubicación original donde se haya compartido, extráelo y coloca las imágenes con esta estructura:
+El archivo local `dataset.zip.rar` utilizado durante el desarrollo pesa aproximadamente **231 MiB** y no está incluido en este repositorio porque GitHub bloquea las subidas normales de archivos individuales de más de **100 MB**. El enlace anterior lleva a la página de la fuente original; no es un enlace directo al archivo local `dataset.zip.rar`.
+
+Después de descargar los datos, extráelos y organiza las imágenes con esta estructura:
 
 ```text
 dataset/
@@ -29,15 +31,7 @@ dataset/
 └── Positive/
 ```
 
-Los nombres de las carpetas deben conservarse exactamente. Consulta [dataset/README.md](dataset/README.md) para ver los pasos de preparación. Si se quiere distribuir el dataset desde GitHub, debe publicarse mediante Git LFS (revisando sus cuotas) o alojarse en un servicio externo y enlazarse aquí.
-
-**Nota sobre el modelo:** el archivo binario `modelo_detector_grietas.pth` tampoco se encuentra incluido en el repositorio actualmente. Para ejecutar la interfaz sin reentrenar, coloca ese archivo en la raíz del proyecto. Si no tienes los pesos entrenados, será necesario obtenerlos desde el equipo donde se guardaron o volver a entrenar cuando el dataset esté disponible.
-
-## Datos y modelo
-
-El archivo original del dataset se llama `dataset.zip.rar` y pesa aproximadamente 231 MiB. GitHub bloquea archivos individuales de más de 100 MB en las subidas normales, por lo que **el archivo comprimido completo no se puede agregar directamente al repositorio mediante una carga normal**. Consulta [dataset/README.md](dataset/README.md) para preparar las carpetas y las opciones para alojar el archivo grande con Git LFS o almacenamiento externo.
-
-El modelo entrenado `modelo_detector_grietas.pth` también es un archivo binario. Para usar la interfaz, debe estar en la raíz del proyecto junto a `PruebaDetector.py`. Si no está disponible en la descarga, cópialo desde la carpeta donde se entrenó.
+Conserva exactamente los nombres de las carpetas. Consulta [dataset/README.md](dataset/README.md) para ver los pasos de preparación. Para distribuir el archivo local comprimido exacto, habría que publicarlo mediante Git LFS (revisando sus cuotas) o alojarlo en un servicio externo y enlazarlo aquí.
 
 ## Descargar el proyecto
 
