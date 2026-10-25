@@ -4,8 +4,9 @@ venv/
 __pycache__/
 *.py[cod]
 
-# Dataset y pesos generados localmente
-dataset/
+# Datos y checkpoints grandes (se distribuyen por separado; ver dataset/README.md)
+dataset/*
+!dataset/README.md
 modelo_detector_grietas.pth
 checkpoints/
 
