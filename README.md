@@ -17,6 +17,22 @@ Sistema académico para la clasificación preliminar de superficies con o sin gr
 - `dataset/README.md`: instrucciones para preparar los datos.
 - `modelo_detector_grietas.pth`: pesos entrenados necesarios para hacer predicciones (se deben descargar/copiar por separado mientras no estén publicados como artefacto binario).
 
+## Importante: dataset no incluido en GitHub
+
+El dataset original (`dataset.zip.rar`) **no está incluido en este repositorio** porque pesa aproximadamente **231 MiB** y GitHub bloquea las subidas normales de archivos individuales de más de **100 MB**. No se pudo subir directamente por ese límite de tamaño; no es un error del código del proyecto.
+
+Para usar el entrenamiento, descarga el dataset desde la ubicación original donde se haya compartido, extráelo y coloca las imágenes con esta estructura:
+
+```text
+dataset/
+├── Negative/
+└── Positive/
+```
+
+Los nombres de las carpetas deben conservarse exactamente. Consulta [dataset/README.md](dataset/README.md) para ver los pasos de preparación. Si se quiere distribuir el dataset desde GitHub, debe publicarse mediante Git LFS (revisando sus cuotas) o alojarse en un servicio externo y enlazarse aquí.
+
+**Nota sobre el modelo:** el archivo binario `modelo_detector_grietas.pth` tampoco se encuentra incluido en el repositorio actualmente. Para ejecutar la interfaz sin reentrenar, coloca ese archivo en la raíz del proyecto. Si no tienes los pesos entrenados, será necesario obtenerlos desde el equipo donde se guardaron o volver a entrenar cuando el dataset esté disponible.
+
 ## Datos y modelo
 
 El archivo original del dataset se llama `dataset.zip.rar` y pesa aproximadamente 231 MiB. GitHub bloquea archivos individuales de más de 100 MB en las subidas normales, por lo que **el archivo comprimido completo no se puede agregar directamente al repositorio mediante una carga normal**. Consulta [dataset/README.md](dataset/README.md) para preparar las carpetas y las opciones para alojar el archivo grande con Git LFS o almacenamiento externo.
